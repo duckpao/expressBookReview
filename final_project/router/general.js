@@ -96,9 +96,12 @@ public_users.get('/review/:isbn', function (req, res) {
    PHẦN BỔ SUNG CHO TASK 11-14 (SỬ DỤNG ASYNC/PROMISE LÀM MINH CHỨNG)
    (Bạn giữ nguyên phần này trong code để push lên GitHub)
 ----------------------------------------------------------- */
+/* -----------------------------------------------------------
+   PHẦN AXIOS / ASYNC-AWAIT (TASK 11 - 14)
+----------------------------------------------------------- */
 const axios = require('axios');
 
-// Lấy tất cả sách bằng Async/Await (Task 10/11)
+// Task 11: Get all books using async/await
 public_users.get('/async-get-books', async function (req, res) {
     try {
         let response = await axios.get('http://localhost:5000/');
@@ -108,7 +111,7 @@ public_users.get('/async-get-books', async function (req, res) {
     }
 });
 
-// Lấy sách bằng ISBN bằng Promise (Task 11/12)
+// Task 12: Get book details based on ISBN using Promises
 public_users.get('/promise-get-isbn/:isbn', function (req, res) {
     const isbn = req.params.isbn;
     axios.get(`http://localhost:5000/isbn/${isbn}`)
@@ -120,4 +123,26 @@ public_users.get('/promise-get-isbn/:isbn', function (req, res) {
         });
 });
 
+// Task 13: Get book details based on Author using async/await
+public_users.get('/async-get-author/:author', async function (req, res) {
+    try {
+        const author = req.params.author;
+        let response = await axios.get(`http://localhost:5000/author/${author}`);
+        return res.status(200).json(response.data);
+    } catch (error) {
+        return res.status(500).json({message: "Error fetching book details by author"});
+    }
+});
+
+// Task 14: Get book details based on Title using Promises
+public_users.get('/promise-get-title/:title', function (req, res) {
+    const title = req.params.title;
+    axios.get(`http://localhost:5000/title/${title}`)
+        .then(response => {
+            return res.status(200).json(response.data);
+        })
+        .catch(error => {
+            return res.status(500).json({message: "Error fetching book details by title"});
+        });
+});
 module.exports.general = public_users;
