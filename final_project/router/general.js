@@ -3,7 +3,7 @@ let books = require("./booksdb.js");
 let isValid = require("./auth_users.js").isValid;
 let users = require("./auth_users.js").users;
 const public_users = express.Router();
-
+const axios = require("axios");
 // Task 7: Đăng ký User mới
 public_users.post("/register", (req, res) => {
   const username = req.body.username;
@@ -102,7 +102,7 @@ public_users.get("/review/:isbn", function (req, res) {
 /* -----------------------------------------------------------
    PHẦN AXIOS / ASYNC-AWAIT (TASK 11 - 14)
 ----------------------------------------------------------- */
-const axios = require("axios");
+
 
 // Task 11: Get all books - Using async/await to fetch data
 public_users.get("/async-get-books", async function (req, res) {
